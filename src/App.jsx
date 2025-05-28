@@ -60,6 +60,24 @@ function App() {
           </button>
         </div>
       </nav>
+
+      {/*Product title card*/}
+      <div className="w-full h-72 relative mt-24">
+        <div className="w-full h-24 font-extrabold top-20 flex justify-center items-center text-black text-5xl absolute z-10">
+          PRODUCTS
+        </div>
+      </div>
+      {/*cards for products*/}
+      <div className="max-w-sm rounded overflow-hidden shadow-lg mt-7 bg-zinc-100">
+        <div className="px-6 py-4">
+          <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
+          <p className="text-gray-700 text-base">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            Voluptatibus quia, nulla! Maiores et perferendis eaque,
+            exercitationem praesentium nihil.
+          </p>
+        </div>
+      </div>
     </>
   );
 }
