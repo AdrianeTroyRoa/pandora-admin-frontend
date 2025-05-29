@@ -68,9 +68,9 @@ function App() {
         </div>
       </div>
       {/*cards for products*/}
-      <div className="border-b border-gray-200 grid grid-cols-3 gap-7 py-4 w-256">
+      <div className="border-1 border-gray-200 grid grid-cols-3 gap-7 items-center py-4 w-256">
         <div className="flex items-center">
-          <div className="border-1 p-6"></div>
+          <div className="border-1 p-6">Img</div>
         </div>
         <label className="flex flex-col text-justify">
           <span className="text-lg font-bold">Hi</span>
