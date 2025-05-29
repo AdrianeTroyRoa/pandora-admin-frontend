@@ -86,14 +86,7 @@ function App() {
                     36 members
                   </p>
                 </div>
-                <div className="grid gap-2">
-                  <button className="py-2 px-4 text-xs leading-3 text-indigo-700 rounded-full bg-indigo-100">
-                    Edit
-                  </button>
-                  <button className="py-2 px-4 text-xs leading-3 text-indigo-700 rounded-full bg-red-100 text-red-500">
-                    Delete
-                  </button>
-                </div>
+                <button className="border-1 border-red-500 text-red-500">Edit</button>
               </div>
             </div>
             <div className="px-2">
