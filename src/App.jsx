@@ -1,7 +1,6 @@
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
-import "./App.css";
 
 const menuElements = ["Products", "Inquiries"];
 
@@ -12,17 +11,17 @@ function App() {
     <>
       {/*Navbar*/}
       <nav className="fixed top-0 left-0 right-0 z-50 w-full bg-zinc-100 shadow-md">
-        <div className="container flex flex-wrap items-center justify-between mx-auto text-gray-100 py-3">
+        <div className="container flex flex-wrap items-center justify-between mx-auto py-3">
           <a
             href="#"
-            className="mr-4 block cursor-pointer py-1.5 text-base text-gray-200 font-semibold"
+            className="mr-4 block cursor-pointer py-1.5 text-base text-indigo-500 font-semibold"
           >
             King8 Admin
           </a>
           <div className="hidden lg:block">
             <ul className="flex flex-col gap-2 mt-2 mb-4 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
               {menuElements.map((e) => (
-                <li className="flex items-center p-1 text-sm gap-x-2 text-gray-200">
+                <li className="flex items-center p-1 text-sm gap-x-2 text-indigo-500">
                   <a href="#" className="flex items-center">
                     {e}
                   </a>
@@ -33,7 +32,7 @@ function App() {
                   className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700"
                   type="button"
                 >
-                  logout
+                  Logout
                 </button>
               </li>
             </ul>
@@ -68,27 +67,29 @@ function App() {
         </div>
       </div>
       {/*cards for products*/}
-      <div className="border-1 border-gray-200 grid grid-cols-3 gap-7 items-center py-4 w-256">
-        <div className="flex items-center">
-          <div className="border-1 p-6">Img</div>
-        </div>
-        <label className="flex flex-col text-justify">
-          <span className="text-lg font-bold">Hi</span>
-          <span className="text-sm text-gray-500">Description</span>
-        </label>
-        <div>
-          <button
-            className="text-red-500 hover:text-red-700
-                     mr-2 delete-btn"
-          >
-            Delete
-          </button>
-          <button
-            className="text-blue-500
-                     hover:text-blue-700 edit-btn"
-          >
-            Edit
-          </button>
+      <div className="flex justify-center">
+        <div className="border-1 border-gray-200 grid grid-cols-3 gap-7 items-center p-4 min-w-256 rounded">
+          <div className="flex items-center">
+            <div className="border-1 p-6">Img</div>
+          </div>
+          <label className="flex flex-col text-justify">
+            <span className="text-lg font-bold">Hi</span>
+            <span className="text-sm text-gray-500">Description</span>
+          </label>
+          <div className="grid gap-3 justify-end">
+            <button
+              className="hover:text-white text-red-700 bg-white border-1 border-red-700
+                     hover:bg-red-700 p-1 rounded"
+            >
+              Delete
+            </button>
+            <button
+              className="hover:text-white border-1 border-blue-700 hover:bg-blue-700
+                     text-blue-700 p-1 rounded"
+            >
+              Edit
+            </button>
+          </div>
         </div>
       </div>
     </>
