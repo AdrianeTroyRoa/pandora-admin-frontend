@@ -4,6 +4,15 @@ import viteLogo from "/vite.svg";
 
 const menuElements = ["Products", "Inquiries"];
 
+const productSample = [
+  {
+    title: "Basin",
+    description:
+      "low-lying area of land, typically surrounded by higher land, where water naturally collects. It can refer to a drainage basin (an area where all precipitation drains to a common outlet like a river) or a geological basin (a depression formed by tectonic activity where sediments accumulate).",
+  },
+  { title: "Palanggana", description: "Basin japun pero bisaya. Hehehe." },
+];
+
 function App() {
   const [count, setCount] = useState(0);
 
@@ -67,30 +76,34 @@ function App() {
         </div>
       </div>
       {/*cards for products*/}
-      <div className="flex justify-center">
-        <div className="border-1 border-gray-200 grid grid-cols-3 gap-7 items-center p-4 min-w-256 rounded">
-          <div className="flex items-center">
-            <div className="border-1 p-6">Img</div>
-          </div>
-          <label className="flex flex-col text-justify">
-            <span className="text-lg font-bold">Hi</span>
-            <span className="text-sm text-gray-500">Description</span>
-          </label>
-          <div className="grid gap-3 justify-end">
-            <button
-              className="hover:text-white text-red-700 bg-white border-1 border-red-700
+      <div className="flex flex-col justify-center items-center gap-3">
+        {productSample.map((product) => (
+          <div className="border-1 border-gray-200 grid grid-cols-3 gap-7 items-center p-4 w-256 rounded">
+            <div className="flex items-center">
+              <div className="border-1 p-6">Img</div>
+            </div>
+            <label className="flex flex-col text-justify">
+              <span className="text-lg font-bold">{product.title}</span>
+              <span className="text-sm text-gray-500">
+                {product.description}
+              </span>
+            </label>
+            <div className="grid gap-3 justify-end">
+              <button
+                className="hover:text-white text-red-700 bg-white border-1 border-red-700
                      hover:bg-red-700 p-1 rounded"
-            >
-              Delete
-            </button>
-            <button
-              className="hover:text-white border-1 border-blue-700 hover:bg-blue-700
+              >
+                Delete
+              </button>
+              <button
+                className="hover:text-white border-1 border-blue-700 hover:bg-blue-700
                      text-blue-700 p-1 rounded"
-            >
-              Edit
-            </button>
+              >
+                Edit
+              </button>
+            </div>
           </div>
-        </div>
+        ))}
       </div>
     </>
   );
