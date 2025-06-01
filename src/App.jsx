@@ -4,21 +4,20 @@ import viteLogo from "/vite.svg";
 
 const menuElements = ["Products", "Inquiries"];
 
-const productSample = [
-  {
-    title: "Basin",
-    description:
-      "low-lying area of land, typically surrounded by higher land, where water naturally collects. It can refer to a drainage basin (an area where all precipitation drains to a common outlet like a river) or a geological basin (a depression formed by tectonic activity where sediments accumulate).",
-  },
-  { title: "Palanggana", description: "Basin japun pero bisaya. Hehehe." },
-];
-
 function App() {
   const [isModalAddOpen, setIsModalAddOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const [productName, setProductName] = useState("");
   const [productDescription, setProductDescription] = useState("");
   const [currentProductToEdit, setCurrentProductToEdit] = useState(null);
+  const [productSample, setIsProductSample] = useState([
+    {
+      title: "Basin",
+      description:
+        "low-lying area of land, typically surrounded by higher land, where water naturally collects. It can refer to a drainage basin (an area where all precipitation drains to a common outlet like a river) or a geological basin (a depression formed by tectonic activity where sediments accumulate).",
+    },
+    { title: "Palanggana", description: "Basin japun pero bisaya. Hehehe." },
+  ]);
 
   const openAddModal = () => setIsModalAddOpen(true);
   const closeAddModal = () => setIsModalAddOpen(false);
@@ -33,7 +32,9 @@ function App() {
   };
 
   const addProduct = () => {
-    console.log({ title: productName, description: productDescription });
+    const newProduct = { title: productName, description: productDescription };
+    console.log(newProduct);
+    setIsProductSample([...productSample, newProduct]);
     closeAddModal();
   };
 
