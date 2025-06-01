@@ -14,7 +14,17 @@ const productSample = [
 ];
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [productName, setProductName] = useState("");
+  const [productDescription, setProductDescription] = useState("");
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  const addProduct = () => {
+    console.log({ title: productName, description: productDescription });
+    closeModal();
+  };
 
   return (
     <>
@@ -106,10 +116,69 @@ function App() {
             </div>
           </div>
 
-          {/*Add Product button*/}
-          <button className="bg-blue-700 p-2 rounded text-white text-xs hover:bg-blue-800 min-w-[120px]">
+          {/* Add Product button */}
+          <button
+            onClick={openModal}
+            className="bg-blue-700 p-2 rounded text-white text-xs hover:bg-blue-800 min-w-[120px]"
+          >
             + Add Product
           </button>
+
+          {/* Add Product modal */}
+          {isModalOpen && (
+            <div
+              className="fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-transparent backdrop-blur-xs transition-opacity duration-300"
+              onClick={closeModal}
+            >
+              <div
+                className="relative mx-auto w-full max-w-[24rem] rounded-lg overflow-hidden shadow-sm bg-white border-1 border-slate-700"
+                onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside modal
+              >
+                <div className="relative flex flex-col">
+                  <div className="m-2.5 flex justify-center items-center text-white h-24 rounded-md bg-slate-800">
+                    <h3 className="text-2xl">Product Details</h3>
+                  </div>
+
+                  <div className="flex flex-col gap-4 p-6">
+                    <div className="w-full max-w-sm min-w-[200px]">
+                      <input type="file" />
+                    </div>
+                    <div className="w-full max-w-sm min-w-[200px]">
+                      <input
+                        type="text"
+                        className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+                        placeholder="Product Name"
+                        onChange={(e) => {
+                          setProductName(e.target.value);
+                        }}
+                      />
+                    </div>
+
+                    <div className="w-full max-w-sm min-w-[200px]">
+                      <textarea
+                        type="text"
+                        className="w-full min-h-32 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+                        placeholder="Product Description..."
+                        onChange={(e) => {
+                          setProductDescription(e.target.value);
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="p-6 pt-0">
+                    <button
+                      className="w-full rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                      type="button"
+                      onClick={addProduct}
+                    >
+                      Add Product
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {/*cards for products*/}
