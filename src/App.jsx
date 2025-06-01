@@ -14,16 +14,24 @@ const productSample = [
 ];
 
 function App() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalAddOpen, setIsModalAddOpen] = useState(false);
+  const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const [productName, setProductName] = useState("");
   const [productDescription, setProductDescription] = useState("");
+  const [currentProductToEdit, setCurrentProductToEdit] = useState(null);
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const openAddModal = () => setIsModalAddOpen(true);
+  const closeAddModal = () => setIsModalAddOpen(false);
+
+  const openEditModal = () => setIsModalEditOpen(true);
+  const closeEditModal = () => {
+    setIsModalEditOpen(false);
+    setCurrentProductToEdit(null);
+  };
 
   const addProduct = () => {
     console.log({ title: productName, description: productDescription });
-    closeModal();
+    closeAddModal();
   };
 
   return (
@@ -118,17 +126,17 @@ function App() {
 
           {/* Add Product button */}
           <button
-            onClick={openModal}
+            onClick={openAddModal}
             className="bg-blue-700 p-2 rounded text-white text-xs hover:bg-blue-800 min-w-[120px]"
           >
             + Add Product
           </button>
 
           {/* Add Product modal */}
-          {isModalOpen && (
+          {isModalAddOpen && (
             <div
               className="fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-transparent backdrop-blur-xs transition-opacity duration-300"
-              onClick={closeModal}
+              onClick={closeAddModal}
             >
               <div
                 className="relative mx-auto w-full max-w-[24rem] rounded-lg overflow-hidden shadow-sm bg-white border-1 border-slate-700"
@@ -191,30 +199,99 @@ function App() {
         {/*cards for products*/}
         <div className="flex flex-col justify-center items-center gap-3">
           {productSample.map((product) => (
-            <div className="border-1 border-gray-200 grid grid-cols-3 gap-7 items-center p-4 lg:w-256 sm:w-128 rounded">
-              <div className="flex items-center">
-                <div className="border-1 p-6">Img</div>
-              </div>
-              <label className="flex flex-col text-justify">
-                <span className="text-lg font-bold">{product.title}</span>
-                <span className="text-sm text-gray-500">
-                  {product.description}
-                </span>
-              </label>
-              <div className="grid gap-3 justify-end">
-                <button
-                  className="hover:text-white text-red-700 bg-white border-1 border-red-700
+            <div key={product.title}>
+              <div className="border-1 border-gray-200 grid grid-cols-3 gap-7 items-center p-4 lg:w-256 sm:w-128 rounded">
+                <div className="flex items-center">
+                  <div className="border-1 p-6">Img</div>
+                </div>
+                <label className="flex flex-col text-justify">
+                  <span className="text-lg font-bold">{product.title}</span>
+                  <span className="text-sm text-gray-500">
+                    {product.description}
+                  </span>
+                </label>
+                <div className="grid gap-3 justify-end">
+                  <button
+                    className="hover:text-white text-red-700 bg-white border-1 border-red-700
                      hover:bg-red-700 p-1 rounded"
-                >
-                  Delete
-                </button>
-                <button
-                  className="hover:text-white border-1 border-blue-700 hover:bg-blue-700
+                  >
+                    Delete
+                  </button>
+                  <button
+                    className="hover:text-white border-1 border-blue-700 hover:bg-blue-700
                      text-blue-700 p-1 rounded"
-                >
-                  Edit
-                </button>
+                    onClick={() => {
+                      setIsModalEditOpen(true);
+                      setCurrentProductToEdit(product);
+                    }}
+                  >
+                    Edit
+                  </button>
+                </div>
               </div>
+
+              {/*Edit Product Modal*/}
+              {isModalEditOpen && (
+                <div
+                  className="fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-transparent backdrop-blur-xs transition-opacity duration-300"
+                  onClick={closeEditModal}
+                >
+                  <div
+                    className="relative mx-auto w-full max-w-[24rem] rounded-lg overflow-hidden shadow-sm bg-white border-1 border-slate-700"
+                    onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside modal
+                  >
+                    <div className="relative flex flex-col">
+                      <div className="m-2.5 flex justify-center items-center text-white h-24 rounded-md bg-slate-800">
+                        <h3 className="text-2xl">Product Details</h3>
+                      </div>
+
+                      <div className="flex flex-col gap-4 p-6">
+                        <div className="w-full max-w-sm min-w-[200px]">
+                          <label className="block mb-2 text-sm text-slate-600">
+                            Upload product image
+                          </label>
+                          <input
+                            className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+                            type="file"
+                          />
+                        </div>
+                        <hr />
+                        <div className="w-full max-w-sm min-w-[200px]">
+                          <input
+                            type="text"
+                            className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+                            value={currentProductToEdit.title}
+                            onChange={(e) => {
+                              setProductName(e.target.value);
+                            }}
+                          />
+                        </div>
+
+                        <div className="w-full max-w-sm min-w-[200px]">
+                          <textarea
+                            type="text"
+                            className="w-full min-h-32 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+                            value={currentProductToEdit.description}
+                            onChange={(e) => {
+                              setProductDescription(e.target.value);
+                            }}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="p-6 pt-0">
+                        <button
+                          className="w-full rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                          type="button"
+                          onClick={addProduct}
+                        >
+                          Edit Product
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           ))}
         </div>
