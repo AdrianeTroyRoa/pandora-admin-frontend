@@ -23,7 +23,10 @@ function App() {
   const openAddModal = () => setIsModalAddOpen(true);
   const closeAddModal = () => setIsModalAddOpen(false);
 
-  const openEditModal = () => setIsModalEditOpen(true);
+  const openEditModal = (product) => {
+    setIsModalEditOpen(true);
+    setCurrentProductToEdit(product);
+  };
   const closeEditModal = () => {
     setIsModalEditOpen(false);
     setCurrentProductToEdit(null);
@@ -220,10 +223,7 @@ function App() {
                   <button
                     className="hover:text-white border-1 border-blue-700 hover:bg-blue-700
                      text-blue-700 p-1 rounded"
-                    onClick={() => {
-                      setIsModalEditOpen(true);
-                      setCurrentProductToEdit(product);
-                    }}
+                    onClick={() => openEditModal(product)}
                   >
                     Edit
                   </button>
