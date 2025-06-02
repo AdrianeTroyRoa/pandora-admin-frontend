@@ -10,32 +10,66 @@ function App() {
   const [productName, setProductName] = useState("");
   const [productDescription, setProductDescription] = useState("");
   const [currentProductToEdit, setCurrentProductToEdit] = useState(null);
-  const [productSample, setIsProductSample] = useState([
+  const [productSample, setProductSample] = useState([
     {
+      id: 1,
       title: "Basin",
       description:
         "low-lying area of land, typically surrounded by higher land, where water naturally collects. It can refer to a drainage basin (an area where all precipitation drains to a common outlet like a river) or a geological basin (a depression formed by tectonic activity where sediments accumulate).",
     },
-    { title: "Palanggana", description: "Basin japun pero bisaya. Hehehe." },
+    {
+      id: 2,
+      title: "Palanggana",
+      description: "Basin japun pero bisaya. Hehehe.",
+    },
   ]);
 
+  //toggle add-product modal
   const openAddModal = () => setIsModalAddOpen(true);
   const closeAddModal = () => setIsModalAddOpen(false);
 
+  //toggle edit-product modal
   const openEditModal = (product) => {
     setIsModalEditOpen(true);
     setCurrentProductToEdit(product);
+    setProductName(product.title);
+    setProductDescription(product.description);
   };
   const closeEditModal = () => {
     setIsModalEditOpen(false);
     setCurrentProductToEdit(null);
+    setProductName("");
+    setProductDescription("");
   };
 
+  //function for adding new product
   const addProduct = () => {
     const newProduct = { title: productName, description: productDescription };
     console.log(newProduct);
-    setIsProductSample([...productSample, newProduct]);
+    setProductSample([...productSample, newProduct]);
+    setProductName("");
+    setProductDescription("");
+    /*
+     *
+     * Backend Operation Calls
+     *
+     * */
     closeAddModal();
+  };
+
+  //function for editing product entry
+  const editProduct = (productId) => {
+    const newProducts = [...productSample];
+    newProducts.map((product) => {
+      if (product.id === productId) {
+        product.title = productName;
+        product.description = productDescription;
+      }
+    });
+    setProductName("");
+    setProductDescription("");
+    setProductSample(newProducts);
+    closeEditModal();
   };
 
   return (
@@ -203,7 +237,7 @@ function App() {
         {/*cards for products*/}
         <div className="flex flex-col justify-center items-center gap-3">
           {productSample.map((product) => (
-            <div key={product.title}>
+            <div key={product.id}>
               <div className="border-1 border-gray-200 grid grid-cols-3 gap-7 items-center p-4 lg:w-256 sm:w-128 rounded">
                 <div className="flex items-center">
                   <div className="border-1 p-6">Img</div>
@@ -261,7 +295,7 @@ function App() {
                           <input
                             type="text"
                             className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-                            value={currentProductToEdit.title}
+                            value={productName}
                             onChange={(e) => {
                               setProductName(e.target.value);
                             }}
@@ -272,7 +306,7 @@ function App() {
                           <textarea
                             type="text"
                             className="w-full min-h-32 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-                            value={currentProductToEdit.description}
+                            value={productDescription}
                             onChange={(e) => {
                               setProductDescription(e.target.value);
                             }}
@@ -284,7 +318,7 @@ function App() {
                         <button
                           className="w-full rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                           type="button"
-                          onClick={addProduct}
+                          onClick={() => editProduct(currentProductToEdit.id)}
                         >
                           Edit Product
                         </button>
