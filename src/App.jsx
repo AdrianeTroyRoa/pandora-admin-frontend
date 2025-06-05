@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
+import testService from "./services/testService";
 
 const menuElements = ["Products", "Inquiries"];
 
@@ -106,14 +107,13 @@ function App() {
 
   //function to search
   const searchProducts = () => {
-    let products = []
-    if(searchQuery == ""){
+    let products = [];
+    if (searchQuery == "") {
       products = copyOfProductSample;
       setCopyOfProductSample("");
-    }
-    else if (productSample.length > copyOfProductSample.length) {
+    } else if (productSample.length > copyOfProductSample.length) {
       products = productSample;
-      setCopyOfProductSample(productSample)
+      setCopyOfProductSample(productSample);
     } else {
       products = copyOfProductSample;
     }
@@ -151,6 +151,7 @@ function App() {
                 <button
                   className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700"
                   type="button"
+                  onClick={testService}
                 >
                   Logout
                 </button>
