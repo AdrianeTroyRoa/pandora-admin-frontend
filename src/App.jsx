@@ -40,6 +40,7 @@ function App() {
     setIsModalEditOpen(true);
     setCurrentProductToEdit(product);
     setProductName(product.title);
+    setProductAmount(product.numLeft);
     setProductDescription(product.description);
   };
   const closeEditModal = () => {
@@ -86,6 +87,7 @@ function App() {
       if (product.id === productId) {
         product.title = productName;
         product.description = productDescription;
+        product.numLeft = productAmount;
         /*
          *
          * Backend Operation Calls
@@ -362,6 +364,10 @@ function App() {
                   <span className="text-sm text-gray-500">
                     {product.description}
                   </span>
+                  <span className="text-sm text-gray-500 py-2">
+                    <span className="font-bold">STOCKS LEFT: </span>
+                    {product.numLeft}
+                  </span>
                 </label>
                 <div className="grid gap-3 justify-end">
                   <button
@@ -414,6 +420,18 @@ function App() {
                             value={productName}
                             onChange={(e) => {
                               setProductName(e.target.value);
+                            }}
+                          />
+                        </div>
+                        <div className="w-full max-w-sm min-w-[200px]">
+                          <input
+                            type="number"
+                            min="0"
+                            className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+                            placeholder="Stocks Left (0 for no stocks)"
+                            value={productAmount}
+                            onChange={(e) => {
+                              setProductAmount(e.target.value);
                             }}
                           />
                         </div>
