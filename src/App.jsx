@@ -48,6 +48,7 @@ function App() {
     setCurrentProductToEdit(null);
     setProductName("");
     setProductDescription("");
+    setProductAmount(0);
   };
 
   //toggle delete-product modal
@@ -69,9 +70,6 @@ function App() {
     };
     console.log(newProduct);
     setProductSample([...productSample, newProduct]);
-    setProductName("");
-    setProductAmount(0);
-    setProductDescription("");
     /*
      *
      * Backend Operation Calls
@@ -97,6 +95,7 @@ function App() {
     });
     setProductName("");
     setProductDescription("");
+    setProductAmount(0);
     setProductSample(newProducts);
     closeEditModal();
   };
@@ -281,10 +280,11 @@ function App() {
                       <input
                         type="number"
                         min="0"
+                        value={productAmount}
                         className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
                         placeholder="Stocks Left (0 for no stocks)"
                         onChange={(e) => {
-                          setProductName(e.target.value);
+                          setProductAmount(e.target.value);
                         }}
                       />
                     </div>
