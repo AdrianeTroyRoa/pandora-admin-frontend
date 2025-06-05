@@ -11,18 +11,21 @@ function App() {
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [productName, setProductName] = useState("");
+  const [productAmount, setProductAmount] = useState(0);
   const [productDescription, setProductDescription] = useState("");
   const [currentProductToEdit, setCurrentProductToEdit] = useState(null);
   const [productSample, setProductSample] = useState([
     {
       id: 1,
       title: "Basin",
+      numLeft: 12,
       description:
         "low-lying area of land, typically surrounded by higher land, where water naturally collects. It can refer to a drainage basin (an area where all precipitation drains to a common outlet like a river) or a geological basin (a depression formed by tectonic activity where sediments accumulate).",
     },
     {
       id: 2,
       title: "Palanggana",
+      numLeft: 13,
       description: "Basin japun pero bisaya. Hehehe.",
     },
   ]);
@@ -58,10 +61,15 @@ function App() {
 
   //function for adding new product
   const addProduct = () => {
-    const newProduct = { title: productName, description: productDescription };
+    const newProduct = {
+      title: productName,
+      numLeft: productAmount,
+      description: productDescription,
+    };
     console.log(newProduct);
     setProductSample([...productSample, newProduct]);
     setProductName("");
+    setProductAmount(0);
     setProductDescription("");
     /*
      *
@@ -253,6 +261,7 @@ function App() {
                       <input
                         className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
                         type="file"
+                        accept="image/*"
                       />
                     </div>
                     <hr />
@@ -261,6 +270,17 @@ function App() {
                         type="text"
                         className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
                         placeholder="Product Name"
+                        onChange={(e) => {
+                          setProductName(e.target.value);
+                        }}
+                      />
+                    </div>
+                    <div className="w-full max-w-sm min-w-[200px]">
+                      <input
+                        type="number"
+                        min="0"
+                        className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+                        placeholder="Stocks Left (0 for no stocks)"
                         onChange={(e) => {
                           setProductName(e.target.value);
                         }}
