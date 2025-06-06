@@ -12,6 +12,7 @@ function App() {
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [productName, setProductName] = useState("");
+  const [productImage, setProductImage] = useState(null);
   const [productAmount, setProductAmount] = useState(0);
   const [productDescription, setProductDescription] = useState("");
   const [currentProductToEdit, setCurrentProductToEdit] = useState(null);
@@ -68,6 +69,7 @@ function App() {
   const addProduct = () => {
     const newProduct = {
       title: productName,
+      image: productImage,
       numLeft: productAmount,
       description: productDescription,
     };
@@ -82,6 +84,7 @@ function App() {
     setProductName("");
     setProductDescription("");
     setProductAmount(0);
+    setProductImage(null);
     closeAddModal();
   };
 
@@ -270,6 +273,7 @@ function App() {
                         className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
                         type="file"
                         accept="image/*"
+                        onChange={(e) => setProductImage(e.target.files[0])}
                       />
                     </div>
                     <hr />
