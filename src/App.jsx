@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import testService from "./services/testService";
+import addProductRequest from "./services/productService";
 
 const menuElements = ["Products", "Inquiries"];
 
@@ -18,6 +19,7 @@ function App() {
     {
       id: 1,
       title: "Basin",
+      image: null,
       numLeft: 12,
       description:
         "low-lying area of land, typically surrounded by higher land, where water naturally collects. It can refer to a drainage basin (an area where all precipitation drains to a common outlet like a river) or a geological basin (a depression formed by tectonic activity where sediments accumulate).",
@@ -25,6 +27,7 @@ function App() {
     {
       id: 2,
       title: "Palanggana",
+      image: null,
       numLeft: 13,
       description: "Basin japun pero bisaya. Hehehe.",
     },
@@ -75,6 +78,10 @@ function App() {
      * Backend Operation Calls
      *
      * */
+    addProductRequest(newProduct);
+    setProductName("");
+    setProductDescription("");
+    setProductAmount(0);
     closeAddModal();
   };
 

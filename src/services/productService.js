@@ -1,13 +1,18 @@
 import axios from "../api/axios";
 
-const addProductRequest = () => {
+const addProductRequest = (newProduct) => {
   axios
-    .get("/fuck")
-    .then((response) => {
-      console.log("RESPONSE:", response);
-      return response;
+    .post("/product/add-product", {
+      name: newProduct.title,
+      description: newProduct.description,
+      num_left: newProduct.numLeft,
     })
-    .catch((err) => console.log("ERROR:", err));
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log("ERROR:", error);
+    });
 };
 
-export default testRequest;
+export default addProductRequest;
