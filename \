@@ -16,7 +16,7 @@ function App() {
   const [productAmount, setProductAmount] = useState(0);
   const [productDescription, setProductDescription] = useState("");
   const [currentProductToEdit, setCurrentProductToEdit] = useState(null);
-  const [productSample, setProductSample] = useState([
+  const [productSample, setProductSample] = async useState([
     {
       id: 1,
       title: "Basin",
@@ -32,24 +32,29 @@ function App() {
       numLeft: 13,
       description: "Basin japun pero bisaya. Hehehe.",
     },
+    await getAllProducts(),
   ]);
   const [copyOfProductSample, setCopyOfProductSample] = useState([]);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const fetchedProducts = await getAllProducts();
-        setProductSample([...productSample, ...fetchedProducts]);
-      } catch (err) {
-        console.error("ERROR:", err);
-      }
-    };
 
-    fetchProducts();
-  }, []);
+  useEffect(() => {
+    const fetchProducts = async() => {
+      try{
+        const fetchedProducts = await getAllProducts();
+        setProductSample([...productSample, ...fetchedProducts])
+      }
+      catch(err) {
+        console.error("ERROR:", err)
+      }
+    }
+  })
 
   //toggle add-product modal
-  const openAddModal = () => setIsModalAddOpen(true);
+  const openAddModal = async() => {
+    console.log(await getAllProducts());
+    setIsModalAddOpen(true);
+  };
+
   const closeAddModal = () => setIsModalAddOpen(false);
 
   //toggle edit-product modal

@@ -1,6 +1,6 @@
 import axios from "../api/axios";
 
-const addProductRequest = (newProduct) => {
+export const addProductRequest = (newProduct) => {
   const formattedNewProduct = {
     name: newProduct.title,
     description: newProduct.description,
@@ -20,4 +20,23 @@ const addProductRequest = (newProduct) => {
     });
 };
 
-export default addProductRequest;
+export const getAllProducts = async () => {
+  return axios
+    .get("/product/get-products")
+    .then((response) => {
+      let formattedProductList = [];
+      for (let i in Object.keys(response.data)) {
+        const formattedProduct = {
+          title: response.data[i].name,
+          description: response.data[i].description,
+          numLeft: response.data[i].num_left,
+        };
+        formattedProductList.push(formattedProduct);
+      }
+      console.log(formattedProductList);
+      return formattedProductList;
+    })
+    .catch((error) => {
+      console.log("ERROR:", error);
+    });
+};
