@@ -27,6 +27,7 @@ export const getAllProducts = async () => {
       let formattedProductList = [];
       for (let i in Object.keys(response.data)) {
         const formattedProduct = {
+          id: response.data[i].id,
           title: response.data[i].name,
           description: response.data[i].description,
           numLeft: response.data[i].num_left,
@@ -46,9 +47,10 @@ export const getProduct = async (id) => {
     .get(`/product/${id}`)
     .then((response) => {
       const formattedResponse = {
-        title: response.data[0].name,
-        description: response.data[0].description,
-        numLeft: response.data[0].num_left.toString(),
+        id: response.data.id,
+        title: response.data.name,
+        description: response.data.description,
+        numLeft: response.data.num_left.toString(),
       };
       return formattedResponse;
     })
