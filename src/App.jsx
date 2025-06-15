@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import testService from "./services/testService";
-import { addProductRequest, getAllProducts } from "./services/productService";
+import {
+  addProductRequest,
+  getAllProducts,
+  getProduct,
+  updateProduct,
+} from "./services/productService";
 
 const menuElements = ["Products", "Inquiries"];
 
@@ -88,7 +93,7 @@ function App() {
     };
     console.log(newProduct);
     setProductSample([...productSample, newProduct]);
-    addProductRequest(newProduct);
+    addProductRequest(newProduct); //Backend operation call
     setProductName("");
     setProductDescription("");
     setProductAmount(0);
@@ -97,7 +102,7 @@ function App() {
   };
 
   //function for editing product entry
-  const editProduct = (productId) => {
+  const editProduct = async (productId) => {
     const newProducts = [...productSample];
     newProducts.map((product) => {
       if (product.id === productId) {
@@ -109,6 +114,20 @@ function App() {
          * Backend Operation Calls
          *
          * */
+        try {
+          const productToEdit = getProduct(product.id);
+
+          let proceedToEdit = false;
+          for (let i in Object.keys(productToEdit)) {
+            if (product[i] !== productToEdit[i]) proceedToEdit = true;
+          }
+
+          if (proceedToEdit) {
+            updateProduct(product);
+          }
+        } catch (error) {
+          console.error("ERROR:", error);
+        }
       }
     });
     setProductName("");

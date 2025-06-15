@@ -40,3 +40,42 @@ export const getAllProducts = async () => {
       console.log("ERROR:", error);
     });
 };
+
+export const getProduct = async (id) => {
+  return axios
+    .get(`/product/${id}`)
+    .then((response) => {
+      const formattedResponse = {
+        title: response.data[0].name,
+        description: response.data[0].description,
+        numLeft: response.data[0].num_left.toString(),
+      };
+      return formattedResponse;
+    })
+    .catch((error) => {
+      console.log("ERROR:", error);
+    });
+};
+
+export const updateProduct = async (updatedProduct) => {
+  const formattedUpdatedProduct = {
+    name: updatedProduct.title,
+    description: updatedProduct.description,
+    num_left: updatedProduct.numLeft,
+  };
+
+  const formData = new FormData();
+  if (updatedProduct.image) {
+    formData.append("file", updatedProduct.image);
+  }
+  formData.append("payload", JSON.stringify(formattedUpdatedProduct));
+
+  axios
+    .put(`/product/update-product/${updatedProduct.id}`, formData)
+    .then((response) => {
+      console.log("RESPONSE:", response);
+    })
+    .catch((error) => {
+      console.error("ERROR:", error);
+    });
+};
