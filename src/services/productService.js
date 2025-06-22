@@ -52,6 +52,8 @@ export const getProduct = async (id) => {
         description: response.data.description,
         numLeft: response.data.num_left.toString(),
       };
+      console.log("Getting a product's details...");
+      console.log(formattedResponse);
       return formattedResponse;
     })
     .catch((error) => {
@@ -59,7 +61,9 @@ export const getProduct = async (id) => {
     });
 };
 
-export const updateProduct = async (updatedProduct) => {
+export const updateProduct = (updatedProduct) => {
+  console.log("Updating a product...");
+
   const formattedUpdatedProduct = {
     name: updatedProduct.title,
     description: updatedProduct.description,
@@ -67,9 +71,6 @@ export const updateProduct = async (updatedProduct) => {
   };
 
   const formData = new FormData();
-  if (updatedProduct.image) {
-    formData.append("file", updatedProduct.image);
-  }
   formData.append("payload", JSON.stringify(formattedUpdatedProduct));
 
   axios

@@ -102,9 +102,9 @@ function App() {
   };
 
   //function for editing product entry
-  const editProduct = async (productId) => {
+  const editProduct = (productId) => {
     const newProducts = [...productSample];
-    newProducts.map((product) => {
+    newProducts.map(async (product) => {
       if (product.id === productId) {
         product.title = productName;
         product.description = productDescription;
@@ -115,10 +115,12 @@ function App() {
          *
          * */
         try {
-          const productToEdit = getProduct(product.id);
+          const productToEdit = await getProduct(product.id);
 
           let proceedToEdit = false;
-          for (let i in Object.keys(productToEdit)) {
+          console.warn("Product GOT:", Object.keys(productToEdit));
+          console.warn("REACHED FOR LOOP...");
+          for (let i of Object.keys(productToEdit)) {
             if (product[i] !== productToEdit[i]) proceedToEdit = true;
           }
 
@@ -441,16 +443,6 @@ function App() {
                       </div>
 
                       <div className="flex flex-col gap-4 p-6">
-                        <div className="w-full max-w-sm min-w-[200px]">
-                          <label className="block mb-2 text-sm text-slate-600">
-                            Upload product image
-                          </label>
-                          <input
-                            className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-                            type="file"
-                          />
-                        </div>
-                        <hr />
                         <div className="w-full max-w-sm min-w-[200px]">
                           <input
                             type="text"
